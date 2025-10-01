@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BF2Statistics.Models;
 using BF2Statistics.Data;
@@ -43,7 +43,7 @@ namespace BF2Statistics.Controllers
                 if (_allUnlocks)
                 {
                     // AllUnlocks模式：所有解锁都设为's'状态
-                    nick = "All_Unlocks";
+                    nick = "All_Unlocks"; // 与PHP脚本保持一致
                     
                     // 基础解锁 (11, 22, 33, 44, 55, 66, 77)
                     for (int i = 11; i < 100; i += 11)
@@ -51,7 +51,7 @@ namespace BF2Statistics.Controllers
                         unlockData += $"D\t{i}\ts\n";
                     }
                     
-                    // 特殊解锁 (88, 99, 111, 222, 333, 444, 555) - 修复：添加88和99
+                    // 特殊解锁 (88, 99, 111, 222, 333, 444, 555)
                     var specialUnlocks = new[] { 88, 99, 111, 222, 333, 444, 555 };
                     foreach (var unlock in specialUnlocks)
                     {
@@ -122,11 +122,11 @@ namespace BF2Statistics.Controllers
                            "H\tid\tstate\n";
 
                 // 计算响应长度（不包括制表符和换行符）
-                var headerLength = pid.ToString().Length + nick.Length + DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString().Length + earned.ToString().Length;
-                var dataLength = unlockData.Replace("\t", "").Replace("\n", "").Length;
-                var totalLength = headerLength + dataLength + 51; // 51是固定字符的长度
+                // 遵循PHP脚本的校验和计算逻辑
+                var checksumContent = output + unlockData;
+                var totalLength = checksumContent.Replace("\t", "").Replace("\n", "").Length;
 
-                var response = output + unlockData + $"$\t{totalLength}\t$";
+                var response = checksumContent + $"$\t{totalLength}\t$";
                 
                 return Content(response, "text/plain");
             }

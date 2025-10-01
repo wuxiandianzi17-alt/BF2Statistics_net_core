@@ -45,26 +45,27 @@ namespace BF2Statistics.Services
 
                 // 检查是否已有SMOC奖章持有者
                 var currentSmoc = await _context.Awards
-                    .FirstOrDefaultAsync(a => a.AwardId == 6666666);
+                    .FirstOrDefaultAsync(a => a.AwardId == 6666666 && a.Level > 0); // 查找活跃的SMOC奖项
 
                 if (currentSmoc != null)
                 {
                     // 如果不是同一个玩家，则更换SMOC
-                    if (currentSmoc.Id != topPlayerId)
+                    if (currentSmoc.PlayerId != topPlayerId) // 比较 PlayerId
                     {
                         // 移除旧的SMOC奖章和等级
                         _context.Awards.Remove(currentSmoc);
                         
-                        var oldPlayer = await _context.Players.FindAsync(currentSmoc.Id);
+                        var oldPlayer = await _context.Players.FindAsync(currentSmoc.PlayerId);
                         if (oldPlayer != null)
                         {
                             oldPlayer.Rank = 10;
                         }
-
+                        
                         // 授予新的SMOC奖章和等级
                         var newSmocAward = new Award
                         {
-                            Id = topPlayerId,
+                            // Id 将由数据库自增生成
+                            PlayerId = topPlayerId,
                             AwardId = 6666666
                         };
                         _context.Awards.Add(newSmocAward);
@@ -76,15 +77,17 @@ namespace BF2Statistics.Services
                         }
 
                         await _context.SaveChangesAsync();
-                        _logger.LogInformation($"SMOC从玩家{currentSmoc.Id}转移到玩家{topPlayerId}");
+                        _logger.LogInformation($"SMOC从玩家{currentSmoc.PlayerId}转移到玩家{topPlayerId}");
                     }
                 }
                 else
                 {
                     // 没有现有SMOC，直接授予
+                    // 创建新的SMOC奖章记录
                     var newSmocAward = new Award
                     {
-                        Id = topPlayerId,
+                        // Id 将由数据库自增生成
+                        PlayerId = topPlayerId,
                         AwardId = 6666666
                     };
                     _context.Awards.Add(newSmocAward);
@@ -135,26 +138,27 @@ namespace BF2Statistics.Services
 
                 // 检查是否已有GEN奖章持有者
                 var currentGen = await _context.Awards
-                    .FirstOrDefaultAsync(a => a.AwardId == 6666667);
+                    .FirstOrDefaultAsync(a => a.AwardId == 6666667 && a.Level > 0); // 查找活跃的GEN奖项
 
                 if (currentGen != null)
                 {
                     // 如果不是同一个玩家，则更换GEN
-                    if (currentGen.Id != topPlayerId)
+                    if (currentGen.PlayerId != topPlayerId) // 比较 PlayerId
                     {
                         // 移除旧的GEN奖章和等级
                         _context.Awards.Remove(currentGen);
                         
-                        var oldPlayer = await _context.Players.FindAsync(currentGen.Id);
+                        var oldPlayer = await _context.Players.FindAsync(currentGen.PlayerId);
                         if (oldPlayer != null)
                         {
                             oldPlayer.Rank = 20;
                         }
-
+                        
                         // 授予新的GEN奖章和等级
                         var newGenAward = new Award
                         {
-                            Id = topPlayerId,
+                            // Id 将由数据库自增生成
+                            PlayerId = topPlayerId,
                             AwardId = 6666667
                         };
                         _context.Awards.Add(newGenAward);
@@ -166,15 +170,17 @@ namespace BF2Statistics.Services
                         }
 
                         await _context.SaveChangesAsync();
-                        _logger.LogInformation($"GEN从玩家{currentGen.Id}转移到玩家{topPlayerId}");
+                        _logger.LogInformation($"GEN从玩家{currentGen.PlayerId}转移到玩家{topPlayerId}");
                     }
                 }
                 else
                 {
                     // 没有现有GEN，直接授予
+                    // 创建新的GEN奖章记录
                     var newGenAward = new Award
                     {
-                        Id = topPlayerId,
+                        // Id 将由数据库自增生成
+                        PlayerId = topPlayerId,
                         AwardId = 6666667
                     };
                     _context.Awards.Add(newGenAward);

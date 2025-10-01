@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BF2Statistics.Migrations
 {
     /// <inheritdoc />
-    public partial class AddServersTable : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -126,6 +126,8 @@ namespace BF2Statistics.Migrations
                 {
                     id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    pid = table.Column<int>(type: "INTEGER", nullable: false),
+                    name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     awardid = table.Column<int>(type: "INTEGER", nullable: false),
                     level = table.Column<byte>(type: "INTEGER", nullable: false, defaultValue: (byte)0),
                     when = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
@@ -138,12 +140,43 @@ namespace BF2Statistics.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "game_sessions",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    server_ip = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false, defaultValue: ""),
+                    game_port = table.Column<int>(type: "INTEGER", nullable: false),
+                    query_port = table.Column<int>(type: "INTEGER", nullable: false),
+                    map_name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false, defaultValue: ""),
+                    map_id = table.Column<int>(type: "INTEGER", nullable: false),
+                    map_start = table.Column<double>(type: "REAL", nullable: false),
+                    map_end = table.Column<double>(type: "REAL", nullable: false),
+                    winner = table.Column<int>(type: "INTEGER", nullable: false),
+                    game_mode = table.Column<int>(type: "INTEGER", nullable: false),
+                    mod_id = table.Column<int>(type: "INTEGER", nullable: false),
+                    version = table.Column<string>(type: "TEXT", maxLength: 10, nullable: false, defaultValue: "bf2"),
+                    pc = table.Column<int>(type: "INTEGER", nullable: false),
+                    ra1 = table.Column<int>(type: "INTEGER", nullable: false),
+                    rs1 = table.Column<int>(type: "INTEGER", nullable: false),
+                    ra2 = table.Column<int>(type: "INTEGER", nullable: false),
+                    rs2 = table.Column<int>(type: "INTEGER", nullable: false),
+                    rst2 = table.Column<int>(type: "INTEGER", nullable: false),
+                    created_at = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2025, 10, 1, 8, 5, 36, 594, DateTimeKind.Utc).AddTicks(2928)),
+                    updated_at = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValue: new DateTime(2025, 10, 1, 8, 5, 36, 594, DateTimeKind.Utc).AddTicks(3180))
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_game_sessions", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ip2nation",
                 columns: table => new
                 {
                     ip = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    country = table.Column<string>(type: "TEXT", maxLength: 2, nullable: false, defaultValue: "")
+                    country = table.Column<string>(type: "TEXT", maxLength: 2, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -156,9 +189,9 @@ namespace BF2Statistics.Migrations
                 {
                     id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    victim = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
+                    victim = table.Column<int>(type: "INTEGER", nullable: false),
                     attacker = table.Column<int>(type: "INTEGER", nullable: false),
-                    count = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0)
+                    count = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -174,24 +207,24 @@ namespace BF2Statistics.Migrations
                     time0 = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
                     time1 = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
                     time2 = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    time3 = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    time4 = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    time5 = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    time6 = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    kills0 = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    kills1 = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    kills2 = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    kills3 = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    kills4 = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    kills5 = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    kills6 = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    deaths0 = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    deaths1 = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    deaths2 = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    deaths3 = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    deaths4 = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    deaths5 = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    deaths6 = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0)
+                    time3 = table.Column<int>(type: "INTEGER", nullable: false),
+                    time4 = table.Column<int>(type: "INTEGER", nullable: false),
+                    time5 = table.Column<int>(type: "INTEGER", nullable: false),
+                    time6 = table.Column<int>(type: "INTEGER", nullable: false),
+                    kills0 = table.Column<int>(type: "INTEGER", nullable: false),
+                    kills1 = table.Column<int>(type: "INTEGER", nullable: false),
+                    kills2 = table.Column<int>(type: "INTEGER", nullable: false),
+                    kills3 = table.Column<int>(type: "INTEGER", nullable: false),
+                    kills4 = table.Column<int>(type: "INTEGER", nullable: false),
+                    kills5 = table.Column<int>(type: "INTEGER", nullable: false),
+                    kills6 = table.Column<int>(type: "INTEGER", nullable: false),
+                    deaths0 = table.Column<int>(type: "INTEGER", nullable: false),
+                    deaths1 = table.Column<int>(type: "INTEGER", nullable: false),
+                    deaths2 = table.Column<int>(type: "INTEGER", nullable: false),
+                    deaths3 = table.Column<int>(type: "INTEGER", nullable: false),
+                    deaths4 = table.Column<int>(type: "INTEGER", nullable: false),
+                    deaths5 = table.Column<int>(type: "INTEGER", nullable: false),
+                    deaths6 = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -204,14 +237,14 @@ namespace BF2Statistics.Migrations
                 {
                     id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    name = table.Column<string>(type: "TEXT", maxLength: 45, nullable: false, defaultValue: ""),
-                    score = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    time = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    kills = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    deaths = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    captures = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    assists = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    rounds = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
+                    name = table.Column<string>(type: "TEXT", maxLength: 32, nullable: false),
+                    score = table.Column<int>(type: "INTEGER", nullable: false),
+                    time = table.Column<int>(type: "INTEGER", nullable: false),
+                    kills = table.Column<int>(type: "INTEGER", nullable: false),
+                    deaths = table.Column<int>(type: "INTEGER", nullable: false),
+                    captures = table.Column<int>(type: "INTEGER", nullable: false),
+                    assists = table.Column<int>(type: "INTEGER", nullable: false),
+                    rounds = table.Column<int>(type: "INTEGER", nullable: false),
                     times = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -223,20 +256,17 @@ namespace BF2Statistics.Migrations
                 name: "maps",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    id = table.Column<int>(type: "INTEGER", nullable: false),
+                    mapid = table.Column<int>(type: "INTEGER", nullable: false),
                     time = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    wins = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    losses = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    score = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    bestscore = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    worstscore = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    bested = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    worsted = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0)
+                    win = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
+                    loss = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
+                    best = table.Column<int>(type: "INTEGER", nullable: false),
+                    worst = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_maps", x => x.id);
+                    table.PrimaryKey("PK_maps", x => new { x.id, x.mapid });
                 });
 
             migrationBuilder.CreateTable(
@@ -309,8 +339,8 @@ namespace BF2Statistics.Migrations
                 {
                     id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ip = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false),
-                    prefix = table.Column<string>(type: "TEXT", maxLength: 30, nullable: false),
+                    ip = table.Column<string>(type: "TEXT", maxLength: 15, nullable: false, defaultValue: ""),
+                    prefix = table.Column<string>(type: "TEXT", maxLength: 30, nullable: false, defaultValue: ""),
                     name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
                     port = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
                     queryport = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
@@ -474,13 +504,10 @@ namespace BF2Statistics.Migrations
                     tacticalhit = table.Column<int>(type: "INTEGER", nullable: false),
                     grapplinghookhit = table.Column<int>(type: "INTEGER", nullable: false),
                     ziplinehit = table.Column<int>(type: "INTEGER", nullable: false),
-                    Time = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
                     Kills = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
                     Deaths = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
                     Fired = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    Hit = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    Damage = table.Column<float>(type: "REAL", nullable: false, defaultValue: 0f),
-                    Accuracy = table.Column<float>(type: "REAL", nullable: false, defaultValue: 0f)
+                    Hit = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0)
                 },
                 constraints: table =>
                 {
@@ -491,34 +518,46 @@ namespace BF2Statistics.Migrations
                 name: "unlocks",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    player_id = table.Column<int>(type: "INTEGER", nullable: false),
-                    unlock_id = table.Column<int>(type: "INTEGER", nullable: false),
-                    state = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
-                    earned = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0)
+                    id = table.Column<int>(type: "INTEGER", nullable: false),
+                    kit = table.Column<int>(type: "INTEGER", nullable: false),
+                    state = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_unlocks", x => x.id);
+                    table.PrimaryKey("PK_unlocks", x => new { x.id, x.kit });
                     table.ForeignKey(
-                        name: "FK_unlocks_player_player_id",
-                        column: x => x.player_id,
+                        name: "FK_unlocks_player_id",
+                        column: x => x.id,
                         principalTable: "player",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_game_sessions_created_at",
+                table: "game_sessions",
+                column: "created_at");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_game_sessions_map_name",
+                table: "game_sessions",
+                column: "map_name");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_game_sessions_map_start",
+                table: "game_sessions",
+                column: "map_start");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_game_sessions_server_ip",
+                table: "game_sessions",
+                column: "server_ip");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_servers_ip_port",
                 table: "servers",
                 columns: new[] { "ip", "port" },
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_unlocks_player_id",
-                table: "unlocks",
-                column: "player_id");
         }
 
         /// <inheritdoc />
@@ -529,6 +568,9 @@ namespace BF2Statistics.Migrations
 
             migrationBuilder.DropTable(
                 name: "awards");
+
+            migrationBuilder.DropTable(
+                name: "game_sessions");
 
             migrationBuilder.DropTable(
                 name: "ip2nation");

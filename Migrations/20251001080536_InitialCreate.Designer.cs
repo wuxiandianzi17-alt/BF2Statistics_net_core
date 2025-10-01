@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BF2Statistics.Migrations
 {
     [DbContext(typeof(BF2StatisticsContext))]
-    [Migration("20250928023316_AddGameSessionTable")]
-    partial class AddGameSessionTable
+    [Migration("20251001080536_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -463,6 +463,16 @@ namespace BF2Statistics.Migrations
                         .HasDefaultValue((byte)0)
                         .HasColumnName("level");
 
+                    b.Property<int>("PlayerId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("pid");
+
+                    b.Property<string>("PlayerName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("name");
+
                     b.Property<int>("When")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
@@ -484,7 +494,7 @@ namespace BF2Statistics.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTime(2025, 9, 28, 2, 33, 15, 904, DateTimeKind.Utc).AddTicks(4673))
+                        .HasDefaultValue(new DateTime(2025, 10, 1, 8, 5, 36, 594, DateTimeKind.Utc).AddTicks(2928))
                         .HasColumnName("created_at");
 
                     b.Property<int>("GameMode")
@@ -558,7 +568,7 @@ namespace BF2Statistics.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTime(2025, 9, 28, 2, 33, 15, 904, DateTimeKind.Utc).AddTicks(4933))
+                        .HasDefaultValue(new DateTime(2025, 10, 1, 8, 5, 36, 594, DateTimeKind.Utc).AddTicks(3180))
                         .HasColumnName("updated_at");
 
                     b.Property<string>("Version")
@@ -595,10 +605,8 @@ namespace BF2Statistics.Migrations
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(2)
                         .HasColumnType("TEXT")
-                        .HasDefaultValue("")
                         .HasColumnName("country");
 
                     b.HasKey("Ip");
@@ -618,15 +626,11 @@ namespace BF2Statistics.Migrations
                         .HasColumnName("attacker");
 
                     b.Property<int>("Count")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("count");
 
                     b.Property<int>("Victim")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("victim");
 
                     b.HasKey("Id");
@@ -642,87 +646,59 @@ namespace BF2Statistics.Migrations
                         .HasColumnName("id");
 
                     b.Property<int>("Deaths0")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("deaths0");
 
                     b.Property<int>("Deaths1")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("deaths1");
 
                     b.Property<int>("Deaths2")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("deaths2");
 
                     b.Property<int>("Deaths3")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("deaths3");
 
                     b.Property<int>("Deaths4")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("deaths4");
 
                     b.Property<int>("Deaths5")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("deaths5");
 
                     b.Property<int>("Deaths6")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("deaths6");
 
                     b.Property<int>("Kills0")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("kills0");
 
                     b.Property<int>("Kills1")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("kills1");
 
                     b.Property<int>("Kills2")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("kills2");
 
                     b.Property<int>("Kills3")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("kills3");
 
                     b.Property<int>("Kills4")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("kills4");
 
                     b.Property<int>("Kills5")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("kills5");
 
                     b.Property<int>("Kills6")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("kills6");
 
                     b.Property<int>("Time0")
@@ -744,27 +720,19 @@ namespace BF2Statistics.Migrations
                         .HasColumnName("time2");
 
                     b.Property<int>("Time3")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("time3");
 
                     b.Property<int>("Time4")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("time4");
 
                     b.Property<int>("Time5")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("time5");
 
                     b.Property<int>("Time6")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("time6");
 
                     b.HasKey("Id");
@@ -775,33 +743,22 @@ namespace BF2Statistics.Migrations
             modelBuilder.Entity("BF2Statistics.Models.Map", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
                         .HasColumnName("id");
 
-                    b.Property<int>("BestScore")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("MapId")
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
-                        .HasColumnName("bestscore");
+                        .HasColumnName("mapid");
 
-                    b.Property<int>("Bested")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("Best")
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
-                        .HasColumnName("bested");
+                        .HasColumnName("best");
 
-                    b.Property<int>("Losses")
+                    b.Property<int>("Loss")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
                         .HasDefaultValue(0)
-                        .HasColumnName("losses");
-
-                    b.Property<int>("Score")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
-                        .HasColumnName("score");
+                        .HasColumnName("loss");
 
                     b.Property<int>("Time")
                         .ValueGeneratedOnAdd()
@@ -809,25 +766,17 @@ namespace BF2Statistics.Migrations
                         .HasDefaultValue(0)
                         .HasColumnName("time");
 
-                    b.Property<int>("Wins")
+                    b.Property<int>("Win")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
                         .HasDefaultValue(0)
-                        .HasColumnName("wins");
+                        .HasColumnName("win");
 
-                    b.Property<int>("WorstScore")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("Worst")
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
-                        .HasColumnName("worstscore");
+                        .HasColumnName("worst");
 
-                    b.Property<int>("Worsted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
-                        .HasColumnName("worsted");
-
-                    b.HasKey("Id");
+                    b.HasKey("Id", "MapId");
 
                     b.ToTable("maps");
                 });
@@ -840,53 +789,37 @@ namespace BF2Statistics.Migrations
                         .HasColumnName("id");
 
                     b.Property<int>("Assists")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("assists");
 
                     b.Property<int>("Captures")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("captures");
 
                     b.Property<int>("Deaths")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("deaths");
 
                     b.Property<int>("Kills")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("kills");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(45)
+                        .HasMaxLength(32)
                         .HasColumnType("TEXT")
-                        .HasDefaultValue("")
                         .HasColumnName("name");
 
                     b.Property<int>("Rounds")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("rounds");
 
                     b.Property<int>("Score")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("score");
 
                     b.Property<int>("Time")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
                         .HasColumnName("time");
 
                     b.Property<int>("Times")
@@ -1141,8 +1074,10 @@ namespace BF2Statistics.Migrations
 
                     b.Property<string>("Ip")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(15)
                         .HasColumnType("TEXT")
+                        .HasDefaultValue("")
                         .HasColumnName("ip");
 
                     b.Property<DateTime>("LastUpdate")
@@ -1164,8 +1099,10 @@ namespace BF2Statistics.Migrations
 
                     b.Property<string>("Prefix")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(30)
                         .HasColumnType("TEXT")
+                        .HasDefaultValue("")
                         .HasColumnName("prefix");
 
                     b.Property<int>("QueryPort")
@@ -1195,20 +1132,13 @@ namespace BF2Statistics.Migrations
 
             modelBuilder.Entity("BF2Statistics.Models.Unlock", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("PlayerId")
                         .HasColumnType("INTEGER")
                         .HasColumnName("id");
 
-                    b.Property<int>("Earned")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("UnlockId")
                         .HasColumnType("INTEGER")
-                        .HasDefaultValue(0)
-                        .HasColumnName("earned");
-
-                    b.Property<int>("PlayerId")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("player_id");
+                        .HasColumnName("kit");
 
                     b.Property<int>("State")
                         .ValueGeneratedOnAdd()
@@ -1216,15 +1146,9 @@ namespace BF2Statistics.Migrations
                         .HasDefaultValue(0)
                         .HasColumnName("state");
 
-                    b.Property<int>("UnlockId")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("unlock_id");
+                    b.HasKey("PlayerId", "UnlockId");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("PlayerId");
-
-                    b.ToTable("unlocks", (string)null);
+                    b.ToTable("unlocks");
                 });
 
             modelBuilder.Entity("BF2Statistics.Models.Vehicle", b =>
@@ -1414,11 +1338,6 @@ namespace BF2Statistics.Migrations
                         .HasColumnType("INTEGER")
                         .HasColumnName("id");
 
-                    b.Property<float>("Accuracy")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("REAL")
-                        .HasDefaultValue(0f);
-
                     b.Property<int>("AtmineDeaths")
                         .HasColumnType("INTEGER")
                         .HasColumnName("atminedeaths");
@@ -1478,11 +1397,6 @@ namespace BF2Statistics.Migrations
                     b.Property<int>("ClaymoreTime")
                         .HasColumnType("INTEGER")
                         .HasColumnName("claymoretime");
-
-                    b.Property<float>("Damage")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("REAL")
-                        .HasDefaultValue(0f);
 
                     b.Property<int>("Deaths")
                         .ValueGeneratedOnAdd()
@@ -1755,11 +1669,6 @@ namespace BF2Statistics.Migrations
                     b.Property<int>("TacticalTime")
                         .HasColumnType("INTEGER")
                         .HasColumnName("tacticaltime");
-
-                    b.Property<int>("Time")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasDefaultValue(0);
 
                     b.Property<int>("Time0")
                         .HasColumnType("INTEGER")

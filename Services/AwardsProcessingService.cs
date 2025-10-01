@@ -318,19 +318,21 @@ namespace BF2Statistics.Services
                 {
                     // 检查是否已存在该奖章
                     var existingAward = await _context.Awards
-                        .FirstOrDefaultAsync(a => a.Id == playerId && a.AwardId == awardId);
+                        .FirstOrDefaultAsync(a => a.PlayerId == playerId && a.AwardId == awardId); // 使用 PlayerId 和 AwardId 进行查找
 
                     if (existingAward != null)
                     {
                         // 更新现有奖章的数量
                         existingAward.Level = (byte)count;
+                        existingAward.Earned = (int)DateTimeOffset.UtcNow.ToUnixTimeSeconds(); // 更新获得时间
                     }
                     else
                     {
                         // 创建新的奖章记录
                         var newAward = new Award
                         {
-                            Id = playerId,
+                            // Id 将由数据库自增生成
+                            PlayerId = playerId,
                             AwardId = awardId,
                             Level = (byte)count,
                             When = (int)DateTimeOffset.UtcNow.ToUnixTimeSeconds(),

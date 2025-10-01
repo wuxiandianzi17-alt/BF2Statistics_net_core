@@ -35,17 +35,16 @@ namespace BF2Statistics.Controllers
                     return Content("Player not found!", "text/plain");
                 }
 
-                var output = "O\n" +
-                           $"H\tpid\trank\tchng\tdecr\n" +
-                           $"D\t{pid}\t{player.Rank}\t{player.Chng}\t{player.Decr}\n";
+                // 遵循最新的测试格式：单行、空格分隔
+                var output = $"O H rank chng decr D {player.Rank} {player.Chng} {player.Decr}";
 
                 // 重置chng和decr值
                 player.Chng = 0;
                 player.Decr = 0;
                 await _context.SaveChangesAsync();
 
-                var num = output.Length;
-                var response = output + $"$\t{num}\t$";
+                var checksum = output.Replace(" ", string.Empty).Length;
+                var response = output + $" $ {checksum} $";
                 return Content(response, "text/plain");
             }
             catch (Exception ex)

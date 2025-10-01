@@ -90,10 +90,12 @@ namespace BF2Statistics.Data
             // Map表配置
             modelBuilder.Entity<Map>(entity =>
             {
-                entity.HasKey(e => e.Id);
+                // 修正：将 Id (玩家ID) 和 MapId 设为复合主键
+                entity.HasKey(e => new { e.Id, e.MapId });
                 entity.Property(e => e.Time).HasDefaultValue(0);
-                entity.Property(e => e.Wins).HasDefaultValue(0);
-                entity.Property(e => e.Losses).HasDefaultValue(0);
+                // 修正：使用正确的属性名 Win 和 Loss
+                entity.Property(e => e.Win).HasDefaultValue(0);
+                entity.Property(e => e.Loss).HasDefaultValue(0);
             });
 
             // MapInfo表配置

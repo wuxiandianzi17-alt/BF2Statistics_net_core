@@ -87,7 +87,7 @@ namespace BF2Statistics.Controllers
                 // 地图统计
                 if (mapStats != null)
                 {
-                    response += $"Map Stats:\tTime: {mapStats.Time}\tWins: {mapStats.Wins}\tLosses: {mapStats.Losses}\tScore: {mapStats.Score}\n\n";
+                    response += $"Map Stats:\tTime: {mapStats.Time}\tWin: {mapStats.Win}\tLoss: {mapStats.Loss}\tBest: {mapStats.Best}\tWorst: {mapStats.Worst}\n\n";
                 }
 
                 // 军队统计
